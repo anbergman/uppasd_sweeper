@@ -18,13 +18,13 @@ It prepares input folders, modifies them, runs the binary, and logs output.
 Install the script with `pip`
 
 ```bash
-pip install git+https://github.com/anbergman/t_sweeper.git
+pip install git+https://github.com/anbergman/uppasd_sweeper.git
 ```
 
 or optionally
 
 ```bash
-python -m pip install git+https://github.com/anbergman/t_sweeper.git
+python -m pip install git+https://github.com/anbergman/uppasd_sweeper.git
 ```
 
 ---
@@ -110,7 +110,7 @@ python t_sweeper.py
 
 **Custom binary and input folder:**
 ```bash
-python t_sweeper.py --tmin 50 --tmax 200 --steps 4 --binary ./uppasd.exe --base Base
+python t_sweeper.py --tmin 50 --tmax 200 --tstep 50 --binary ./uppasd.exe --base Base
 ```
 
 **Using config file only:**

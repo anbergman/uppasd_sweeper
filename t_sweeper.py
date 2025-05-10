@@ -5,12 +5,13 @@ This script runs simulations over a range of temperatures by
 updating input files and executing a binary.
 """
 
-import sys
 import argparse
 import shutil
 import subprocess
-import numpy as np
+import sys
 from pathlib import Path
+
+import numpy as np
 
 
 def parse_config_file(file_path):
@@ -117,7 +118,7 @@ def main():
     parser.add_argument(
         "--tmax", type=float, default=500, help="Maximum temperature (default: 500)"
     )
-    
+
     parser.add_argument(
         "--tstep", type=float, default=100, help="Temperature step (default: 100)"
     )
@@ -146,14 +147,15 @@ def main():
     )
 
     args = parser.parse_args()
-    
+
     # Override with config file if given
     if args.file:
         config = parse_config_file(args.file)
         print("Using config file:", args.file)
-        print("Config file contents:")
+        print("  Config file contents:")
         for key, value in config.items():
-            print(f"  {key}: {value}")
+            print(f"    {key}: {value}")
+
         args.tmin = float(config.get("tmin", args.tmin))
         args.tmax = float(config.get("tmax", args.tmax))
         args.tstep = int(config.get("tstep", args.tstep))
@@ -163,16 +165,16 @@ def main():
 
     if any("tstep" in arg for arg in args.__dict__):
         temperatures = np.arange(args.tmin, args.tmax + args.tstep, args.tstep)
-    if any("tstep" in arg for arg in args.__dict__):
+    elif any("steps" in arg for arg in args.__dict__):
         temperatures = np.linspace(args.tmin, args.tmax, args.steps)
     else:
         print("No temperature step or number of steps provided.")
         sys.exit(1)
-        
+
     print("Temperature mesh:")
     for idx, temp in enumerate(temperatures):
         print(f"  Step {idx:02d}: {temp:6.2f}")
-        
+
     binary_path = Path(args.binary)
     print(f"Using binary: {binary_path}")
 
